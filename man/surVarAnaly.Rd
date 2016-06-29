@@ -38,7 +38,9 @@ that can be used in subsequent analyses to adjust for unknown, unmodeled, or lat
 The return values of the function can be accessed as <variable>$<parameter>
 }
 \examples{
+\dontrun{
 surVarAnaly(expSetobj, blgy_var, adj_var)
+}
 }
 \author{
 Karthikeyan  Murugesan <karthikm at gatech.edu>
@@ -54,4 +56,3 @@ sva: Surrogate Variable Analysis. R package version 3.12.0.
 \keyword{SVA}
 \keyword{Surrogate}
 \keyword{Variable}
-

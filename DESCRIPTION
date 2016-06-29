@@ -1,13 +1,13 @@
 Package: ExpressionNormalizationWorkflow
 Type: Package
 Title: Gene Expression Normalization Workflow
-Version: 1.0.1
+Version: 1.0.2
 Published: 2014-04-30
 Authors@R: as.person(c(
     "Karthikeyan Murugesan<karthikm@gatech.edu> [aut, cre]",
     "Greg Gibson <ggibson.gt@gmail.com> [sad]"
     ))
-Description: An extensive, customized expression normalization workflow incorporating Supervised Normalization of Microarryas(SNM), Surrogate Variable Analysis(SVA) and Principal Variance Component Analysis to identify batch effects and remove them from the expression data to enhance the ability to detect the underlying biological signals 
+Description: An extensive, customized expression normalization workflow incorporating Supervised Normalization of Microarryas(SNM), Surrogate Variable Analysis(SVA) and Principal Variance Component Analysis to identify batch effects and remove them from the expression data to enhance the ability to detect the underlying biological signals
 Depends:
     Biobase (>= 2.24.0), limma (>= 3.20.9), lme4 (>= 1.1.7),
     matrixStats (>= 0.10.3), pvca (>= 1.4.0), snm (>= 1.12.0), sva (>= 3.10.0), vsn (>= 3.32.0)

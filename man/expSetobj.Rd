@@ -24,7 +24,9 @@ meta data associated like the covariate information, annotations and experiment 
 The return values of the function can be accessed as variable$parameter
 }
 \examples{
+\dontrun{
 expSetobj(exprs, cvrts)
+}
 }
 \author{
 Karthikeyan  Murugesan <karthikm at gatech.edu>
@@ -34,4 +36,3 @@ Gentleman RC, Carey VJ, Bates DM and others (2004).
 “Bioconductor: Open software development for computational biology and bioinformatics.” Genome Biology, 5, pp. R80.
 }
 \keyword{ExpressionSet}
-

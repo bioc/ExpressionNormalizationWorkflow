@@ -28,7 +28,9 @@ It efficiently combines principal component analysis
 The return values of the function can be accessed as <variable>$<parameter>
 }
 \examples{
+\dontrun{
 pvcAnaly(expSetobj, pct_thrsh, covariate_variables)
+}
 }
 \author{
 Karthikeyan  Murugesan <karthikm at gatech.edu>
@@ -45,4 +47,3 @@ Bushel P (2013). pvca: Principal Variance Component Analysis (PVCA).R package ve
 \keyword{Principal}
 \keyword{VCA,}
 \keyword{Variance}
-

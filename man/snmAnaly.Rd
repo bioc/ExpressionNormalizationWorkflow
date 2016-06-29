@@ -67,7 +67,9 @@ Biological, Adjustment and the Intensity dependent adjustment variables are user
 The return values of the function can be accessed as <variable>$<parameter>
 }
 \examples{
+\dontrun{
 snmAnaly(expression_matrix, covariate_matrix)
+}
 }
 \author{
 Karthikeyan  Murugesan <karthikm at gatech.edu>
@@ -86,4 +88,3 @@ microarrays.Bioinformatics, 26: 1308-1315, Brig Mecham and John D. Storey<jstore
 \keyword{Normalization,}
 \keyword{SNM,}
 \keyword{Supervised,}
-
