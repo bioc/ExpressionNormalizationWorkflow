@@ -19,7 +19,9 @@ the function returns a modified  samples x covariates matrix with the categorize
 the end as another column
 }
 \examples{
+\dontrun{
 conTocat(covariate_matrix,"BMI")
+}
 }
 \author{
 Karthikeyan Murugesan<karthikm at gatech.edu>
