@@ -79,7 +79,7 @@ covrts[1:5, 1:10]
 
 An ExpressionSet Class^[1]^ is a Biobase data structure that is used to conveniently store experimental information and associated meta data, all in  one place. Here an object of the the ExpressionSet Class is being created, which stores the gene expression values and the phenotype data.
 
-```{r eval = TRUE}
+```{r eval=FALSE}
 inpData <- expSetobj(exprs, covrts)
 ```
 
