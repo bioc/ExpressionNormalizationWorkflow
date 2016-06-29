@@ -66,7 +66,7 @@ covrts <- read.table(expDesign_file_name, row.names=1, header=TRUE, sep=",") ##r
 library(ExpressionNormalizationWorkflow)
 ```
 
-```{r eval=TRUE, echo=FALSE}
+```{r eval=FALSE, echo=FALSE}
 exprs <- system.file("extdata",  "CAD_Expression.csv",   package="ExpressionNormalizationWorkflow")  
 ## reading the file containing the gene expression values
 covrts<- system.file("extdata",  "CAD_ExptDsgn.csv",   package="ExpressionNormalizationWorkflow")  
@@ -78,6 +78,7 @@ covrts[1:5, 1:10]
 #### B. Creating an ExpressionSet Object
 
 An ExpressionSet Class^[1]^ is a Biobase data structure that is used to conveniently store experimental information and associated meta data, all in  one place. Here an object of the the ExpressionSet Class is being created, which stores the gene expression values and the phenotype data.
+
 ```{r eval = TRUE}
 inpData <- expSetobj(exprs, covrts)
 ```
