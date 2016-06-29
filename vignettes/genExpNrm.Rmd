@@ -69,7 +69,7 @@ library(ExpressionNormalizationWorkflow)
 ```{r eval=TRUE, echo=FALSE}
 exprs <- system.file("extdata",  "CAD_Expression.csv",   package="ExpressionNormalizationWorkflow")  
 ## reading the file containing the gene expression values
-covrt s<- system.file("extdata",  "CAD_ExptDsgn.csv",   package="ExpressionNormalizationWorkflow")  
+covrts<- system.file("extdata",  "CAD_ExptDsgn.csv",   package="ExpressionNormalizationWorkflow")  
 ##reading the file containing the covariates
 exprs[1:5, 1:5]
 covrts[1:5, 1:10]
