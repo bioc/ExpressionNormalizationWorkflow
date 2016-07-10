@@ -7,10 +7,11 @@
 #' @return exp_datObj ExpressionSet Datatype Object
 #' @note The return values of the function can be accessed as variable$parameter
 #' @keywords ExpressionSet
-#' @author Karthikeyan  Murugesan <karthikm at gatech.edu>
+#' @author Karthikeyan  Murugesan <karthikeyanm60 at yahoo.com>
+#' @import Biobase limma lme4 matrixStats pvca snm sva vsn
 #' @references Gentleman RC, Carey VJ, Bates DM and others (2004).
 #' “Bioconductor: Open software development for computational biology and bioinformatics.” Genome Biology, 5, pp. R80.
-#' @examples expSetobj(exprs, cvrts)
+#' #@examples expSetobj(expression, covariates)
 #' @export
 
 expSetobj <- function(expression, covariates, cov_desc=NULL)

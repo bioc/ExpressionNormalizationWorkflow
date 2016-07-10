@@ -1,5 +1,5 @@
 #' @title Estimate surrogate covariates unmodeled or hidden in the data
-#' #' @description Surrogate variables are covariates constructed directly from 
+#' @description Surrogate variables are covariates constructed directly from 
 #' high-dimensional data (like gene expression/RNA sequencing/methylation/brain imaging data)
 #' that can be used in subsequent analyses to adjust for unknown, unmodeled, or latent sources of noise.
 #' @param expSetobj Expression set object
@@ -16,11 +16,12 @@
 #' variables added as additional columns to covariate matrix
 #' @note The return values of the function can be accessed as <variable>$<parameter>
 #' @keywords Surrogate Variable Analysis, SVA
-#' @author Karthikeyan  Murugesan <karthikm at gatech.edu>
+#' @author Karthikeyan  Murugesan <karthikeyanm60 at yahoo.com>
+#' @import Biobase limma lme4 matrixStats pvca snm sva vsn
 #' @references Leek JT, Johnson WE, Parker HS, Fertig EJ, Jaffe AE and Storey JD.
 #' sva: Surrogate Variable Analysis. R package version 3.12.0.
 #' @seealso \code{\link{sva}}
-#' @examples surVarAnaly(expSetobj, blgy_var, adj_var)
+#' #@examples surVarAnaly(expSetobj, blgy_var, adj_var)
 #' @export
 
 surVarAnaly <- function(expSetobj, blgy_var, n.sv=NULL) 

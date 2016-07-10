@@ -1,13 +1,12 @@
 #' @title Convert continuous values to categorical/discrete values
-#' @description This function calculates the quantiles for the data  and assigns a quantile group to every data point
-#' @param covariates  samples x covariates matrix containing the continous covariates which need to be discretized
-#' @param varnames the continuous variables that need to be discretized
+#' @description This function calculates the quantiles for the list of input values and assigns a quantile group to every data point
+#' @param covariates samples x covariates matrix containing the continous covariates which need to be discretized
+#' @param var_names a list of the continuous variables that need to be discretized
 #' @note the function returns a modified  samples x covariates matrix with the categorized variables appended to 
 #' the end as another column
 #' @keywords categorize, quantile, discretize
-#' @author Karthikeyan Murugesan<karthikm at gatech.edu>
-#' @examples
-#' conTocat(covariate_matrix,"BMI")
+#' @author Karthikeyan Murugesan<karthikeyanm60 at yahoo.com>
+#' #@examples conTocat(covariates, var_names)
 #' @export
 
 conTocat <- function(covariates, var_names)

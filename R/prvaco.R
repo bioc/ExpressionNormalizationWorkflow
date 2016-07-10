@@ -5,24 +5,25 @@
 #` (PCA) to reduce the feature space and variance components analysis (VCA) which
 #` fits a mixed linear model using factors of interest as random effects to estimate
 #` and partition the total variability.
-#' @param expDatObj  an expression set class object 
+#' @param exp_datObj  an expression set class object 
 #' @param pct_threshold PVCA Threshold Value (a value between 0 and 1) is the percentile
 #'  value of the minimum amount of the variabilities that the selected principal components need to explain 
-#' @param batch.fators a list of covariates whose effect size on the expression data  is to be determined
+#' @param batch_factors a list of covariates whose effect size on the expression data  is to be determined
 #' @return dat A numerical vector that contains the percentile of sources of batch effect for each covariate term
 #' @return label A character vector containing the name for each covariate term 
 #' @note The return values of the function can be accessed as <variable>$<parameter>
 #' @keywords Variance Component Analysis, VCA, Principal Component Analysis, PCA
-#' @author Karthikeyan  Murugesan <karthikm at gatech.edu>
+#' @author Karthikeyan  Murugesan <karthikeyanm60 at yahoo.com>
+#' @import Biobase limma lme4 matrixStats pvca snm sva vsn
 #' @references Bushel P (2013). pvca: Principal Variance Component Analysis (PVCA).R package version 1.6.0.
 #' @seealso \code{\link{pvcaBatchAssess}}
-#' @examples
-#' pvcAnaly(expSetobj, pct_thrsh, covariate_variables)
+#' #@examples
+#' pvcAnaly(exp_datObj, pct_threshold, batch_factors)
 #' @export
 
-pvcAnaly <- function(exp_datObj, pct_threshold, batch.factors)
+pvcAnaly <- function(exp_datObj, pct_threshold, batch_factors)
 {
-    pvcaObj <- pvcaBatchAssess(exp_datObj,batch.factors,pct_threshold)
+    pvcaObj <- pvcaBatchAssess(exp_datObj,batch_factors,pct_threshold)
     bp <- barplot(pvcaObj$dat,
                   ylab=expression(bold("Weighted Average Proportion Variance")),
                 ylim=c(0,1.1), col=c("navy"), las=2, font=2,
@@ -37,7 +38,7 @@ pvcAnaly <- function(exp_datObj, pct_threshold, batch.factors)
 
 
 ## PVCA by Pierre R.Bushel and Jianying Li
-pvcaBatchAssess <- function (abatch, batch.factors, threshold)
+pvcaBatchAssess <- function (abatch, batch_factors, threshold)
 {
     theDataMatrix <- exprs(vsn2(abatch, verbose=FALSE))
     dataRowN <- nrow(theDataMatrix)
@@ -54,7 +55,7 @@ pvcaBatchAssess <- function (abatch, batch.factors, threshold)
     eigenVectorsMatrix <- eigenData$vectors
     eigenValuesSum <- sum(eigenValues)
     percents_PCs <- eigenValues / eigenValuesSum
-    expInfo <- pData(abatch)[, batch.factors]
+    expInfo <- pData(abatch)[, batch_factors]
     exp_design <- as.data.frame(expInfo)
     expDesignRowN <- nrow(exp_design)
     expDesignColN <- ncol(exp_design)

@@ -38,11 +38,12 @@
 #' and the adjustment variables.
 #' @note The return values of the function can be accessed as <variable>$<parameter>
 #' @keywords SNM, Supervised, Normalization, Microarray, Adjustment, Batch Effect
-#' @author Karthikeyan  Murugesan <karthikm at gatech.edu>
+#' @author Karthikeyan  Murugesan <karthikeyanm60 at yahoo.com>
+#' @import Biobase limma lme4 matrixStats pvca snm sva vsn
 #' @references Mecham BH, Nelson PS, Storey JD (2010) Supervised normalization of 
 #' microarrays.Bioinformatics, 26: 1308-1315, Brig Mecham and John D. Storey<jstorey at princeton.edu>
 #' @seealso \code{\link{snm}}
-#' @examples snmAnaly(expression_matrix, covariate_matrix)
+#' #@examples snmAnaly(expression_matrix, covariate_matrix)
 #' @export
 
 snmAnaly <- function(exprs, cov, bv, av, iv, adj=TRUE)
