@@ -1,31 +1,27 @@
 \name{ExpressionNormalizationWorkflow-package}
-\alias{ExpressionNormalizationWorkflow-package}
 \alias{ExpressionNormalizationWorkflow}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Gene Expression Normalization Workflow
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+An extensive, customized expression normalization workflow
+incorporating Supervised Normalization of Microarryas(SNM), Surrogate Variable
+Analysis(SVA) and Principal Variance Component Analysis to identify batch
+effects and remove them from the expression data to enhance the ability to
+detect the underlying biological signals.
 }
 \details{
 \tabular{ll}{
 Package: \tab ExpressionNormalizationWorkflow\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
-Date: \tab 2015-02-28\cr
-License: \tab What license is it under?\cr
+Date: \tab 2014-04-30\cr
+License: \tab GPL (>=3)\cr
 }
-~~ An overview of how to use the package, including the most ~~
-~~ important functions ~~
 }
 \author{
-Who wrote it
-
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Karthikeyan Murugesan<karthikeyanm60 at yahoo.com>
 }
 \references{
 ~~ Literature or other references for background information ~~
