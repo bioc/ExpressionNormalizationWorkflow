@@ -51,10 +51,10 @@ Covariates are the different phenotypes that are used to describe the sample fro
 Format  - Samples x Covariates,  preferably a comma separated file (.csv)  
 Take a look at the sample data to get an idea of how the files should be structured
 
-```{r eval=FALSE }
+```{r eval=FALSE, echo=TRUE }
 ## Enter the full path for the gene expression values in here  
 expData_file_name <- scan(what=" ",  sep="\n")
-exprs <- read.table(expData_file_name, header=TRUE, sep=", ", row.names=1, as.is=TRUE) ## reading the file containing
+exprs <- read.table(expData_file_name, header=TRUE, sep=",", row.names=1, as.is=TRUE) ## reading the file containing
 ## gene expression values
 ## Enter the full path for the experimental design file  
 expDesign_file_name <- scan(what=" ", sep="\n")
@@ -62,14 +62,16 @@ covrts <- read.table(expDesign_file_name, row.names=1, header=TRUE, sep=",") ##r
 ```
 
 ```{r eval=TRUE, echo=FALSE}
-## loading the required packages for the workflow
+## Install and load  the  packagage to run the workflow
 library(ExpressionNormalizationWorkflow)
 ```
 
-```{r eval=FALSE, echo=FALSE}
-exprs <- system.file("extdata",  "CAD_Expression.csv",   package="ExpressionNormalizationWorkflow")  
+```{r eval=TRUE, echo=FALSE}
+exprs_path <- system.file("extdata",  "CAD_Expression.csv",   package="ExpressionNormalizationWorkflow")
+exprs <- read.table(exprs_path, header=TRUE, sep=",", row.names=1, as.is=TRUE)
 ## reading the file containing the gene expression values
-covrts<- system.file("extdata",  "CAD_ExptDsgn.csv",   package="ExpressionNormalizationWorkflow")  
+covrts_path <- system.file("extdata",  "CAD_ExptDsgn.csv",   package="ExpressionNormalizationWorkflow")
+covrts <- read.table(covrts_path, row.names=1, header=TRUE, sep=",")
 ##reading the file containing the covariates
 exprs[1:5, 1:5]
 covrts[1:5, 1:10]
