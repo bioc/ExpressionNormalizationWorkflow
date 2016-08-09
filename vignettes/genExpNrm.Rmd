@@ -1,10 +1,12 @@
-
 ---
 title: "Gene Expression Normalization Workflow"
 author: "Karthikeyan Murugesan,  Greg Gibson Lab  <http://cig.gatech.edu>"
 output:
   html_document:
     toc: yes
+vignette: >
+  %\VignetteIndexEntry{Gene Expression Normalization Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ### Introduction
@@ -64,6 +66,7 @@ covrts <- read.table(expDesign_file_name, row.names=1, header=TRUE, sep=",") ##r
 ```{r eval=TRUE, echo=FALSE}
 ## Install and load  the  packagage to run the workflow
 library(ExpressionNormalizationWorkflow)
+library(Biobase)
 ```
 
 ```{r eval=TRUE, echo=FALSE}
@@ -81,7 +84,7 @@ covrts[1:5, 1:10]
 
 An ExpressionSet Class^[1]^ is a Biobase data structure that is used to conveniently store experimental information and associated meta data, all in  one place. Here an object of the the ExpressionSet Class is being created, which stores the gene expression values and the phenotype data.
 
-```{r eval=FALSE}
+```{r eval=TRUE}
 inpData <- expSetobj(exprs, covrts)
 ```
 
