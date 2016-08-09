@@ -116,7 +116,7 @@ sur_var_obj <- surVarAnaly(inpData, biol_var_sva) ## SVA
 inpData_sv <- sur_var_obj$expSetobject
 var_names <- c("sv1", "sv2") ## sv1 and sv2 are the newly generated surrogate variables  
 pData(inpData_sv)<-conTocat(pData(inpData_sv), var_names) ## discretizing the continuous surrogate variables
-pData(inpData_sv)
+View(pData(inpData_sv))
 ## The SVs and the categorized SVs are appended to the covariate matrix as additional columns
 ```
 The Surrogate Variables are categorized as it is more convenient to run PVCA with categorical variables rather than continuous variables
