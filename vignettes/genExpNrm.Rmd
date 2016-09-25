@@ -2,7 +2,9 @@
 title: "Gene Expression Normalization Workflow"
 author: "Karthikeyan Murugesan,  Greg Gibson Lab  <http://cig.gatech.edu>"
 output:
-  html_document:
+bibliography: references.bib
+link-citations: true  
+    html_document:
     toc: yes
 vignette: >
   %\VignetteIndexEntry{Gene Expression Normalization Workflow}
@@ -12,22 +14,23 @@ vignette: >
 # Introduction
 
 Every Gene Expression study has an underlying question which the experimenter tries to address.
-Before proceeding towards any downstream analysis,  the researcher has to play around with the
+Before proceeding towards any downstream analysis,  the researcher has to inspect the
 gene expression  data to understand the genetic,  environmental,  population,  technical and
-confounding factors that could potentially have an effect on the gene expression values.This
+confounding factors which can bias the gene expression values.This
 needs to be studied  to ensure that the contributions of non biological variables to any
-observed biological signal is accounted for .There is no 'one fits for all' data analysis
-approach that works for every  experiment.This workflow has been designed keeping this in mind,
-mainly using analyses  methods like the supervised normalization of microarrays,  surrogate
-variable analysis and the principal variance component analysis amongst others.
+observed biological signal is accounted for.
+  We suggest using a dynamic workflow to tackle the above mentioned problem as there is no 
+'one fits for all' data analysis approach that works for every  experiment.This workflow has been 
+designed keeping this in mind, mainly using analyses  methods like the supervised normalization of microarrays,  
+surrogate variable analysis and the principal variance component analysis amongst others.
 
 The data is based on the paper by Kim et al (Gene expression profiles associated with acute myocardial
 infarction and risk of cardiovascular death, Genome Medicine 2014 6:40,  http://genomemedicine.com/content/6/5/40 )  
-Link to the GEO dataset http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE49925
+Link to the GEO data set http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE49925
 
 # Package Content
 
-The workflow package contains five functions that will be frequently used.These are:
+The workflow package contains five functions that will be frequently used prior to any empirical analysis in order to inspect batch effects that may affect biological inferences.These are:
 
 1. expSetobj – function to create an Expression Set Object which encapsulates the expression values, covariate information  
 and the experiment metadata  
@@ -40,7 +43,7 @@ and the experiment metadata
 
 The workflow runs on these two data files  
 1. CAD_Expression.csv - file containing gene expression values  ( 10, 000 probes across 100 samples)  
-2. CAD_Exptdsgn.csv - file containing the phenotypic information (100 samples across 17 covariates )
+2. CAD_Exptdsgn.csv - file containing the phenotype information (100 samples across 17 covariates )
 
 # Workflow steps
 
@@ -56,11 +59,12 @@ Take a look at the sample data to get an idea of how the files should be structu
 ```{r eval=FALSE, echo=TRUE }
 ## Enter the full path for the gene expression values in here  
 expData_file_name <- scan(what=" ",  sep="\n")
-exprs <- read.table(expData_file_name, header=TRUE, sep=",", row.names=1, as.is=TRUE) ## reading the file containing
-## gene expression values
+## reading the file containing the gene expression values
+exprs <- read.table(expData_file_name, header=TRUE, sep=",", row.names=1, as.is=TRUE)
 ## Enter the full path for the experimental design file  
 expDesign_file_name <- scan(what=" ", sep="\n")
-covrts <- read.table(expDesign_file_name, row.names=1, header=TRUE, sep=",") ##reading the file containing the covariates
+## reading the file containing the covariates
+covrts <- read.table(expDesign_file_name, header=TRUE, sep=",", row.names=1, as.is=TRUE)
 ```
 
 ```{r eval=TRUE, echo=FALSE}
@@ -82,19 +86,21 @@ covrts[1:5, 1:10]
 
 ## B. Creating an ExpressionSet Object
 
-An ExpressionSet Class^[1]^ is a Biobase data structure that is used to conveniently store experimental information and associated meta data, all in  one place. Here an object of the the ExpressionSet Class is being created, which stores the gene expression values and the phenotype data.
+An ExpressionSet Class[@Ref1] is a Biobase data structure that is used to conveniently store experimental information and associated meta data, all in  one place. Here an object of the the ExpressionSet Class is being created, which stores the gene expression values and the phenotype data.
 
 ```{r eval=TRUE}
 inpData <- expSetobj(exprs, covrts)
 ```
 
-## C. Principal Variance Component Analysis(PVCA)^[2]^ of the un-normalized data
+## C. Principal Variance Component Analysis(PVCA)[@Ref2] of the un-normalized data
 
-PVCA estimates the variance in the expression dataset  due to each of the given covariates and
+PVCA estimates the variance in the expression data set  due to each of the given covariates and
 attributes the remaining fraction to residual.It efficiently combines principal component analysis
 (PCA) to reduce the feature space and variance components analysis (VCA) which fits a mixed linear
 model using factors of interest as random effects to estimate and partition the total variability.
-Here PVCA is used to estimate the variance due to various CAD covariates like BMI, Ethn, CAD, Rin amongst others
+Here PVCA is used to estimate the variance due to various CAD covariates like BMI, Ethn, CAD, Rin 
+amongst others.For example from the PVCA output graph below , 'Ethnicity' is the covariate of major 
+influence, explaining up to 11.7% of the variance in the gene expression data.
 
 ```{r eval=TRUE}
 cvrts_eff_var <- c("BMI", "Rin", "Ethn", "CAD", "Study")
@@ -104,11 +110,12 @@ pct_thrsh <- 0.6 ## PVCA Threshold Value - a value between 0 & 1
 pvcAnaly(inpData, pct_thrsh, cvrts_eff_var) ## PVCA
 ```
 
-## D. Surrogate Variable Analysis^[3]^
+## D. Surrogate Variable Analysis[@Ref3]
 
 Surrogate variables are covariates constructed directly from high-dimensional data (gene expression or RNA-Seq data)
 that can be used in subsequent analyses to adjust for unknown/unmodeled covariates or latent sources of noise.
-The user provides a biological variable based on which the surrogate variables are generated. These are then appended as new covariates to the existing list of covariates
+The user provides a biological variable based on which the surrogate variables are generated. These are then appended as 
+new covariates to the existing list of covariates.For a thorough introduction to SVA, refer to the paper by [@Ref3]
 
 ```{r eval=TRUE}
 biol_var_sva <- "CAD" ## Choosing  a biological variable that is to be used to calculate the surrogate variables
@@ -125,7 +132,7 @@ The Surrogate Variables are categorized as it is more convenient to run PVCA wit
 
 This helps the researcher understand if the newly identified surrogate variable is entirely independent of all the
 existing covariates and hence a new covariate that classifies the samples in its own way or if the identified
-surrogate variable is a manifestation or a function of one or more existing covariates.Surrogate variables may not be a significant threat if they are associated with existing covariates but could become a very important factor if they are totally independent of tohers. For this purpose a generalized linear model is run where the identified surrogate variables are modelled as a function of the existing covariates  
+surrogate variable is a manifestation or a function of one or more existing covariates.Surrogate variables may not be a significant threat if they are associated with existing covariates but could become a very important factor if they are totally independent of others. For this purpose a generalized linear model is run where the identified surrogate variables are modeled as a function of the existing covariates  
 sv1 ~ CAD+Ethn+Study+BMI+Rin  
 sv2 ~ CAD+Ethn+Study+BMI+Rin
 
@@ -154,14 +161,15 @@ pct_thrsh <- 0.6 ## PVCA Threshold Value - value between 0 and 1
 pvcAnaly(inpData_sv, pct_thrsh, cvrts_eff_var) ## PVCA
 ```
 
-## G. Supervised normalization of Microarrays(SNM)^[4]^
+## G. Supervised normalization of Microarrays(SNM)[@Ref4]
 
 SNM is a  study specific, customizable normalization approach that accounts for all known biological,
 adjustment and technical variables . It is very effective in preserving the biological signals while trying
 to minimize the effects due to various technical confounders
 
-Choose the biological variables, the adjustment variables and the intenstiy dependent variables intelligently
+Choose the biological variables, the adjustment variables and the intensity dependent variables intelligently
 based on effect sizes as seen from PVCA.Here we are removing the effects of the study, sv1 and sv2 covariates
+SNM is typically run for 5-20 iterations.In the current workflow all SNM functions are run for 5 iterations.
 
 ```{r eval=TRUE}
 bv <- c("CAD") ## Chose your biological variable covariates
@@ -176,7 +184,7 @@ sv_snm_data <- expSetobj(sv_snmNorm_data, pData(inpData_sv)) ## Creating an  exp
 
 ## H. Principal Variance Component Analysis on the normalized data
 
-This post SNM PVCA reflects how the effect sizes of the covariates span out after removing the effects of the adjustment variables.SNM brings down their effect to a minimal possible value whil trying to preserve the variation due to the biological signals.
+This post SNM PVCA reflects how the effect sizes of the covariates span out after removing the effects of the adjustment variables.SNM brings down their effect to a minimal possible value while trying to preserve the variation due to the biological signals.
 
 ```{r eval=TRUE}
 cvrts_eff_var <- c("BMI", "Ethn", "Rin", "CAD", "sv1_cat", "sv2_cat","Study")
@@ -185,7 +193,9 @@ pct_thrsh <- 0.6 # PVCA Threshold Value - value between 0 and 1
 ## PVCA Threshold Value is the percentile value of the minimum amount of the variabilities that the selected principal components need to explain
 pvcAnaly(sv_snm_data, pct_thrsh, cvrts_eff_var)  ## PVCA
 ```
-Through this approach we have reduced the effect of the study covariate and the surrogate variables and increased the residual to 72.1%  
+Through this approach we have reduced the effect of the study covariate and the surrogate variables and increased the residual to 72.1%.
+Note the increase in the effect sizes of the 'BMI', 'Rin', 'Ethn' and the 'CAD' covariates (These weren't added as adjustment variables in 
+the prior SNM step).
 
 **This data is now apt for further downstream analysis**
 
@@ -200,7 +210,7 @@ The sample workflow aims to analyze the gene expression data used in the Coronar
 the CAD_Exptdsgn.csv contains phenotype information for 17 covariates across 100 samples
 We observed that the expression data has a strong batch effect which we identify, study and remove using this workflow.
 Study type (batch effect covariate) contributes around 36% to the total variance in the expression which can be seen
-from the PVCA analysis (figure 1). This effect has to be removed to obtain clean processable data.
+from the PVCA analysis (figure 1). This effect has to be removed to obtain clean process-able data.
  There are different possible paths to normalize the raw data before proceeding downstream
 
 1. Proceed without adjusting for the batch effect which is basically not normalizing the data.We see a batch effect  
@@ -213,7 +223,7 @@ pvcAnaly(inpData, pct_thrsh, cvrts_eff_var)
 ```
 
 2. Remove the visible batch effect using SNM and proceed downstream  
-From the inital PVCA we observe a batch effect because of the 'study' covariate and we normalize the expression values to remove any bias caused by 'study'. This is a safe approach to proceed with and is generally carried out by researchers . But theres always more to it than meets the eye.
+From the initial PVCA we observe a batch effect because of the 'study' covariate and we normalize the expression values to remove any bias caused by 'study'. This is a safe approach to proceed with and is generally carried out by researchers . But there's always more to it than meets the eye.
 ```{r eval = TRUE, echo=FALSE}
 bv <- c("CAD") ## Chose your biological variable covariates
 av <- c("Study") ## Chose your adjustment variable covariates
@@ -233,25 +243,20 @@ pvcAnaly(snm_data, pct_thrsh, cvrts_eff_var)
 
 3. Identify hidden confounding effects (that do not contribute to the biological signal ) and remove
 both the visible and the invisible adjustment variables  
-From Worflow step D we are able to identify two hidden covariates or surrogate variables for our data
+From Workflow step D we are able to identify two hidden covariates or surrogate variables for our data
 and from  Workflow step E  it can be seen that the the study variable  explains the
 surrogate variable ( sv1) to a significant extent compared to the other modeled covariates . The
 coefficient of the study variable 1.094e-01 is the largest and most significant (p value = 1.1e-05)
 amongst all the others indicating a high degree of covariance between sv 1 and the study
-covariate,therefore sv1 has already been captured by 'study' to a great extent,  hinting that sv1 gets removed if we remove 'study'.However sv2 doesnt show any clear significant relation with any other existing covariates. This is where human intervention is important,if the researcher feels that the covariate could be a potential biological signal and has a consequential effect size then he/she may decide not to remove it or the researcher could remove it if its irrelevant. Here we remove it as the effect size is pretty small. But this is a very subjective experiment dependent step.
+covariate,therefore sv1 has already been captured by 'study' to a great extent,  hinting that sv1 gets removed if we remove 'study'.However sv2 doesn't show any clear significant relation with any other existing covariates. This is where human intervention is important,if the researcher feels that the covariate could be a potential biological signal and has a consequential effect size then he/she may decide not to remove it or the researcher could remove it if its irrelevant. Here we remove it as the effect size is pretty small. But this is a very subjective experiment dependent step.
 ```{r eval = TRUE}
 cvrts_eff_var <- c("BMI", "Ethn", "Rin", "CAD", "sv1_cat", "sv2_cat", "Study")
 pct_thrsh <- 0.6
 pvcAnaly(sv_snm_data, pct_thrsh, cvrts_eff_var)
 ```
 We are able to minimize the effect size of the study covariate  from 36.6% to 0.1%, sv1 from 7% to 0.1%  and sv2 from 1.6% to 0.5% and  
-simultaneously increase the residual from 36.9% to 72.1% which is big jump, hence effectively retreiving the lost biological signals  
+simultaneously increase the residual from 36.9% to 72.1% which is big jump, hence effectively retrieving the lost biological signals  
 With this clean data we can now proceed to perform any downstream analysis.These different analysis paths are possible exploratory steps for the researcher to remove the noise in the data and enhance the ability to detect the underlying biological signal
 
 # References
 
-[1] Falcon et al,  An Introduction to Bioconductor's ExpressionSet Class,  2006  
-[2] Bushel P (2013). pvca: Principal Variance Component Analysis (PVCA). R package version 1.6.0  
-[3] Leek JT,  Johnson WE,  Parker HS,  Fertig EJ,  Jaffe AE and Storey JD. sva: Surrogate Variable
-Analysis. R package version 3.12.0  
-[4] Mecham BH,  Nelson PS and Storey JD (2010). “Supervised normalization of microarrays."Bioinformatics,  26,  pp. 1308-1315.
