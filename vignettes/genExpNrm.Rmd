@@ -1,6 +1,7 @@
 ---
 title: "Gene Expression Normalization Workflow"
-author: "Karthikeyan Murugesan,  Greg Gibson Lab  <http://cig.gatech.edu>"
+author: "Karthikeyan Murugesan, Greg Gibson (http://cig.gatech.edu)
+         Georgia Institute of Technology, Atlanta, USA"
 output:
     html_document:
     toc: yes
@@ -24,7 +25,7 @@ observed biological signal is accounted for.
 designed keeping this in mind, mainly using analyses  methods like the supervised normalization of microarrays,  
 surrogate variable analysis and the principal variance component analysis amongst others.
 
-The data is based on the paper by [@dataRef]
+The data is based on the paper by [@dataRef].
 Link to the GEO data set http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE49925
 
 # Package Content
