@@ -1,9 +1,12 @@
 ---
 title: "Gene Expression Normalization Workflow"
-author: "Karthikeyan Murugesan, Greg Gibson (http://cig.gatech.edu)
-         Georgia Institute of Technology, Atlanta, USA"
+author:
+  name: Karthikeyan Murugesan and Greg Gibson
+  affiliation: 
+  - Georgia Institute of Technology, Atlanta, USA
+  - http://cig.gatech.edu
 output:
-    html_document:
+  html_document:
     toc: yes
 bibliography: references.bib
 link-citations: true
