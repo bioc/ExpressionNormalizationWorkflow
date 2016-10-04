@@ -9,6 +9,7 @@ output:
   html_document:
     toc: yes
 bibliography: references.bib
+csl: biometrics.csl
 link-citations: true
 vignette: >
   %\VignetteIndexEntry{Gene Expression Normalization Workflow}
