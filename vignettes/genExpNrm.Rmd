@@ -22,23 +22,22 @@ Every Gene Expression study has an underlying question which the experimenter tr
 The data is based on a study contrasting peripheral blood gene expression in acute myocardial infarction and coronary artery disease patients, described [@dataRef]. Only a subset of the data is used, and the labels have been changed for privacy protection, but the full data set is accessible from the GEO data repository at 
 http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE49925.
 
-
 # Package Content
 
 The workflow package contains five functions:
-1.  expSetobj – function to create an Expression Set Object which encapsulates the expression values, covariate information, and the experiment metadata
-2.  pvcAnaly - Principal Variance Component Analysis functionality
-3.	surVarAnaly – function which identifies hidden or new surrogate variables that are potential covariates hidden in the data
-4.	conTocat – function to convert continuous variables to categorical variables (discretize)
+1.  expSetobj – function to create an Expression Set Object which encapsulates the expression values, covariate information, and the experiment metadata  
+2.  pvcAnaly - Principal Variance Component Analysis functionality  
+3.	surVarAnaly – function which identifies hidden or new surrogate variables that are potential covariates hidden in the data  
+4.	conTocat – function to convert continuous variables to categorical variables (discretize)  
 5.	snmAnaly – function which implements the Supervised Normalization of Microarrays (SNM) normalization technique
 
 
 ## Sample data  
 
 The workflow runs on these two data files
-1. CAD_Expression.csv - file containing gene expression values (8000 probes for 100 samples)
-2. CAD_Exptdsgn.csv - file containing the phenotype information (100 samples with covariates)
-  sThe covariates are Study (a large batch effect since samples were run 2 years apart), Rin (RNA integrity number, a measure of RNA quality), BMI, Age, Gender, CAD (disease status as Acute MI or Fine at time of sampling of patients in a CAD cohort), Rin3, BMI3, Age3 (discrete categorizations of the three continuous measures, used in the PVCA), and Array (a sample number).
+1. CAD_Expression.csv - file containing gene expression values (8000 probes for 100 samples)  
+2. CAD_Exptdsgn.csv - file containing the phenotype information (100 samples with covariates)  
+ The covariates are Study (a large batch effect since samples were run 2 years apart), Rin (RNA integrity number, a measure of RNA quality), BMI, Age, Gender, CAD (disease status as Acute MI or Fine at time of sampling of patients in a CAD cohort), Rin3, BMI3, Age3 (discrete categorizations of the three continuous measures, used in the PVCA), and Array (a sample number)
   The object of the analysis is to explore how adjusting for Study, Rin, and other covariates if desired, influences the interpretation of the impact of CAD on gene expression.That is, CAD is the biological variable of interest.
 
 
@@ -46,18 +45,28 @@ The workflow runs on these two data files
 
 ## A. Reading Input Data
 
-1. File containing the gene expression values (log transformed)
+1. File containing the gene expression values (log transformed)  
 Format - Features x Samples (where the features could be probes in the case of microarrays, or gene or exon names in the case of RNASeq data), preferably a comma separated file (.csv)
-2. File containing the covariates
-Covariates are the different phenotypes that describe sample attributes, and can be biological, technical, or environmental.In the workflow we will also identify hidden covariates.
+2. File containing the covariates  
+Covariates are the different phenotypes that describe sample attributes, and can be biological, technical, or environmental.In the workflow we will also identify hidden covariates  
 Format - Samples x Covariates, preferably a comma separated file (.csv)
 
 You should start by examining the sample data to get an idea of how the files should be structured.
 
 
 ```{r eval=TRUE, echo=FALSE}
-## Install and load the package to run the workflow
+## Note, this workflow requires R version 3.3.1 or later, which can be installed from https://cran.r-project.org/bin/windows/base/
+## Load required packages from: BiocLite
+
+source("https://bioconductor.org/biocLite.R")
+biocLite()
+## You may get messages letting you know which packages are old or masked, and asking you whether to update all, some, or none of the packages
+
+## BiocGenerics and parallel will be installed, while various packages are masked, and you are welcomed to Bioconductor
+
+## Load the Expression Normalization Workflow from Bioconductor
 library(ExpressionNormalizationWorkflow)
+library(Biobase)
 ```
 
 
