@@ -1,19 +1,31 @@
 ---
 title: "Gene Expression Normalization Workflow"
 author:
-  name: Karthikeyan Murugesan and Greg Gibson
-  affiliation: 
-  - Georgia Institute of Technology, Atlanta, USA
-  - http://cig.gatech.edu
-output:
-  html_document:
-    toc: yes
+  - name: Karthikeyan Murugesan
+    affiliation: 
+      - Georgia Institute of Technology, Atlanta, USA
+      - http://cig.gatech.edu
+    email: karthikeyanm60@yahoo.com
+  - name: Greg Gibson
+    affiliation:
+      - Georgia Institute of Technology, Atlanta, USA
+      - http://cig.gatech.edu
+    email: ggibson.gt@gmail.com
+output: BiocStyle::html_document
 bibliography: references.bib
 csl: biometrics.csl
 vignette: >
   %\VignetteIndexEntry{Gene Expression Normalization Workflow}
   %\VignetteEngine{knitr::rmarkdown}
 ---
+
+# Version Information
+
+**R version**: `r R.version.string`
+
+**Bioconductor version**: `r BiocInstaller::biocVersion()`
+
+**Package**: `r packageVersion("ExpressionNormalizationWorkflow")`
 
 # Introduction
 
@@ -94,7 +106,7 @@ covrts <- read.table(covrts_path, row.names=1, header=TRUE, sep=",")
 ## You can also view the complete Covariate matrix with - View(covrts)
 exprs[1:5, 1:5]
 covrts[1:5, 1:10]
-View(covrts)
+#View(covrts)
 ```
 
 ## B. Creating an ExpressionSet Object
@@ -163,7 +175,7 @@ The following PVCA step is performed to estimate the contributions of the newly 
 var_names <- c("sv1", "sv2", "sv3", "sv4") 
 pData(inpData_sv)<-conTocat(pData(inpData_sv), var_names) 
 ## View them appended to the covariate matrix as additional covariate columns
-View(pData(inpData_sv))
+#View(pData(inpData_sv))
 ## Include the surrogate variables as covariates in addition to BMI3, Rin3, CAD and Study (be sure to use categorical measures of BMI and Rin rather than the continuous measure)
 cvrts_eff_var <- c("BMI3", "Rin3", "CAD", "Study", "sv1_cat", "sv2_cat", "sv3_cat", "sv4_cat")
 ## Again set the PVCA Threshold to explain 75% of the expression variation
