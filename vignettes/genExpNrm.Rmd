@@ -23,7 +23,7 @@ vignette: >
 
 **R version**: `r R.version.string`
 
-**Bioconductor version**: `r BiocInstaller::biocVersion()`
+**Bioconductor version**: `r BiocManager::version()`
 
 **Package**: `r packageVersion("ExpressionNormalizationWorkflow")`
 
@@ -68,10 +68,12 @@ You should start by examining the sample data to get an idea of how the files sh
 
 ```{r eval=TRUE, echo=FALSE}
 ## Note, this workflow requires R version 3.3.1 or later, which can be installed from https://cran.r-project.org/bin/windows/base/
-## Load required packages from: BiocLite
+## Load required packages from: `BiocManager::install()`
 
-source("https://bioconductor.org/biocLite.R")
-biocLite()
+if (!"BiocManager" %in% rownames(installed.packages()))
+     install.packages("BiocManager")
+BiocManager::install()
+
 ## You may get messages letting you know which packages are old or masked, and asking you whether to update all, some, or none of the packages
 
 ## BiocGenerics and parallel will be installed, while various packages are masked, and you are welcomed to Bioconductor
