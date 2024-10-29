@@ -1,7 +1,7 @@
 Package: ExpressionNormalizationWorkflow
 Type: Package
 Title: Gene Expression Normalization Workflow
-Version: 1.31.0
+Version: 1.32.0
 Published: 2014-04-30
 Authors@R: as.person(c(
     "Karthikeyan Murugesan<karthikeyanm60@yahoo.com> [aut, cre]",
